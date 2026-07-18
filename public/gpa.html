@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUASK GPA Calculator</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f4f4f4;
+padding:30px;
+text-align:center;
+}
+
+.container{
+background:white;
+max-width:450px;
+margin:auto;
+padding:25px;
+border-radius:12px;
+box-shadow:0 0 15px rgba(0,0,0,.15);
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+font-size:18px;
+}
+
+button{
+padding:12px 25px;
+font-size:18px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+h2{
+color:#2563eb;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🧮 GPA Calculator</h2>
+
+<input
+type="number"
+id="points"
+placeholder="Total Grade Points">
+
+<input
+type="number"
+id="units"
+placeholder="Total Credit Units">
+
+<button onclick="calculate()">
+
+Calculate GPA
+
+</button>
+
+<h1 id="result"></h1>
+
+</div>
+
+<script>
+
+function calculate(){
+
+let points=parseFloat(document.getElementById("points").value);
+
+let units=parseFloat(document.getElementById("units").value);
+
+if(isNaN(points)||isNaN(units)||units<=0){
+
+alert("Enter valid values");
+
+return;
+
+}
+
+let gpa=(points/units).toFixed(2);
+
+document.getElementById("result").innerHTML=
+
+"Your GPA is <br>"+gpa;
+
+}
+
+</script>
+
+</body>
+</html>
