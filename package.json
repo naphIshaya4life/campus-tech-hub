@@ -1,13 +1,21 @@
+
+
 {
-  "name": "result-portal",
+  "name": "campus-tech-hub",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Campus Tech Hub - Student Learning Platform",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "education",
+    "cybersecurity",
+    "nodejs",
+    "express"
+  ],
+  "author": "Naphtali Ishaya",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
@@ -16,3 +24,4 @@
     "express": "^5.2.1"
   }
 }
+
