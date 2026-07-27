@@ -1,0 +1,322 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Registration | NAPHTECH HUB</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+<div class="hero">
+
+<h1>🎓 FEDERAL UNIVERSITY OF APPLIED SCIENCES, KACHIA</h1>
+
+<p class="subtitle">
+Official Student Registration Portal
+</p>
+
+<p class="powered">
+Powered by <strong>NAPHTECH HUB</strong>
+</p>
+
+<p class="version">
+Smart Student Information System (Prototype v1.0)
+</p>
+
+</div>
+
+
+
+
+<form id="registerForm">
+
+<!-- PERSONAL INFORMATION -->
+
+<h2>👤 Personal Information</h2>
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Surname</label>
+
+<input
+type="text"
+id="surname"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>First Name</label>
+
+<input
+type="text"
+id="firstname"
+required>
+
+</div>
+
+</div>
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Middle Name</label>
+
+<input
+type="text"
+id="middlename">
+
+</div>
+
+<div class="form-group">
+
+<label>Gender</label>
+
+<select id="gender" required>
+
+<option value="">Select Gender</option>
+
+<option>Male</option>
+
+<option>Female</option>
+
+</select>
+
+</div>
+
+</div>
+
+<!-- STUDENT INFORMATION -->
+
+<h2>🎓 Student Information</h2>
+
+<div class="form-group">
+
+<label>Student Registration Number</label>
+
+<input
+type="text"
+id="matric"
+placeholder="FUASK/CPC/CSE/25/0001"
+required>
+
+</div>
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label>Faculty</label>
+
+<select id="faculty" required onchange="toggleOtherFaculty()">
+
+<option value="">Select Faculty</option>
+
+<option>Faculty of Computing</option>
+
+<option>Faculty of Natural & Applied Sciences</option>
+
+<option>Faculty of Engineering</option>
+
+<option>Faculty of Agriculture</option>
+
+<option>Faculty of Environmental Sciences</option>
+
+<option>Faculty of Management Sciences</option>
+
+<option>Faculty of Allied Health Sciences</option>
+
+<option>Faculty of Medical Sciences</option>
+
+<option>Faculty of Environmental Resources Management</option>
+
+<option value="Other">Other (Please Specify)</option>
+
+</select>
+
+<input
+type="text"
+id="otherFaculty"
+placeholder="Enter your Faculty"
+style="display:none; margin-top:10px;">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Department</label>
+
+<select id="department" required onchange="toggleOtherDepartment()">
+
+<option value="">Select Department</option>
+
+<option>Cyber Security</option>
+
+<option>Computer Science</option>
+
+<option>Software Engineering</option>
+
+<option>Artificial Intelligence</option>
+
+<option>Microbiology</option>
+
+<option>Biotechnology</option>
+
+<option>Physics</option>
+
+<option>Chemistry</option>
+
+<option>Mathematics</option>
+
+<option value="Other">Other (Please Specify)</option>
+
+</select>
+
+<input
+type="text"
+id="otherDepartment"
+placeholder="Enter your Department"
+style="display:none; margin-top:10px;">
+
+</div>
+
+
+
+</div>
+
+<div class="form-group">
+
+<label>Level</label>
+
+<select id="level" required>
+
+<option value="">Select Level</option>
+
+<option>100 Level</option>
+
+<option>200 Level</option>
+
+<option>300 Level</option>
+
+<option>400 Level</option>
+
+<option>500 Level</option>
+
+</select>
+
+</div>
+
+<!-- CONTACT -->
+
+<h2>📞 Contact Information</h2>
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Email Address</label>
+
+<input
+type="email"
+id="email"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Phone Number</label>
+
+<input
+type="tel"
+id="phone"
+required>
+
+</div>
+
+</div>
+
+<!-- SECURITY -->
+
+<h2>🔒 Security</h2>
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input
+type="password"
+id="password"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Confirm Password</label>
+
+<input
+type="password"
+id="confirmPassword"
+required>
+
+</div>
+
+</div>
+
+<button
+type="submit"
+class="register-btn">
+
+🚀 Create Account
+
+</button>
+
+<p
+id="message"
+class="message">
+
+</p>
+
+<p class="login-link">
+
+Already have an account?
+
+<a href="login.html">
+
+Login Here
+
+</a>
+
+</p>
+
+</form>
+
+</div>
+
+<script src="js/register.js"></script>
+
+</body>
+
+</html>

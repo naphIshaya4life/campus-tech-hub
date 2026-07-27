@@ -1,0 +1,25 @@
+[
+    {
+        "id": 1785073873870,
+        "fullname": "NAPHTALI ISHAYA ",
+        "email": "nasaraj1998@gmail.com",
+        "department": "cyber security ",
+        "level": "200 level ",
+        "password": "$2b$10$GG1MKh.NzOZ6BOS0nqJ9v.WUb9gu1FdvSWj3POFlMUvX11w0MsRcK"
+    },
+    {
+        "id": 1785085804617,
+        "surname": "ISHAYA",
+        "firstname": "NAPHTALI",
+        "middlename": "JUNIOR",
+        "matric": "FUAS/CPC/CSE/25/0159",
+        "email": "ishayanaph2040@gmail.com",
+        "phone": "07047411953",
+        "faculty": "Faculty of Computing",
+        "department": "Cyber Security",
+        "level": "200 Level",
+        "gender": "Male",
+        "password": "$2b$10$QZ.esemcyoTXF6id/S4cA.ppiwy3rB8ub4yWODJy0vdii0AqpnzMq",
+        "createdAt": "2026-07-26T17:10:04.617Z"
+    }
+]

@@ -1,5 +1,3 @@
-
-
 {
   "name": "campus-tech-hub",
   "version": "1.0.0",
@@ -21,7 +19,8 @@
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "lowdb": "^7.0.1"
   }
 }
-
