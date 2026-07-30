@@ -199,25 +199,26 @@ router.post("/register", async (req, res) => {
 
 });
 
+
 // ==========================================
 // LOGIN
 // ==========================================
 
 router.post("/login", async (req, res) => {
 
-    const {
-
-        email,
-
-        password
-
-    } = req.body;
+    const { email, password } = req.body;
 
     let users = getUsers();
 
     const user = users.find(
 
-        u => u.email === email
+        u =>
+
+            u.email &&
+
+            u.email.trim().toLowerCase() ===
+
+            email.trim().toLowerCase()
 
     );
 
@@ -270,11 +271,10 @@ router.post("/login", async (req, res) => {
         faculty: user.faculty,
 
         department: user.department,
+
         level: user.level,
 
         role: user.role
-
-
 
     };
 
@@ -292,7 +292,10 @@ router.post("/login", async (req, res) => {
 
 
 
-module.exports = router;
+
+
+
+
 
 
 // ==========================================
@@ -317,3 +320,6 @@ router.get("/logout", (req, res) => {
     });
 
 });
+
+
+module.exports = router;
