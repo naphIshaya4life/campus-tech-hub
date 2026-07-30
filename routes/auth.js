@@ -174,6 +174,13 @@ router.post("/register", async (req, res) => {
 
         password: hashedPassword,
 
+
+        // ==========================================
+        // USER ROLE
+        // ==========================================
+
+        role: "student",
+
         createdAt: new Date().toISOString()
 
     };
@@ -258,11 +265,16 @@ router.post("/login", async (req, res) => {
 
         email: user.email,
 
+        phone: user.phone,
+
         faculty: user.faculty,
 
         department: user.department,
+        level: user.level,
 
-        level: user.level
+        role: user.role
+
+
 
     };
 
@@ -278,24 +290,30 @@ router.post("/login", async (req, res) => {
 
 });
 
+
+
+module.exports = router;
+
+
 // ==========================================
 // LOGOUT
+// Destroy user session
 // ==========================================
 
 router.get("/logout", (req, res) => {
 
-    req.session.destroy(() => {
+    req.session.destroy((err) => {
 
-        res.json({
+        if (err) {
 
-            success: true,
+            return res.status(500).send("Logout failed.");
 
-            message: "Logged out successfully."
+        }
 
-        });
+        res.clearCookie("connect.sid");
+
+        res.redirect("/login.html");
 
     });
 
 });
-
-module.exports = router;

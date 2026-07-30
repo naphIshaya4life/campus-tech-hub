@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | NAPHTECH HUB</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+
+
+
+<div class="dashboard-container">
+
+    <header class="dashboard-header">
+
+        <h1>🎓 NAPHTECH HUB</h1>
+
+
+
+        <h2>Campus Information System</h2>
+
+        <p class="school-name">
+            Federal University of Applied Sciences, Kachia
+       </p>
+
+
+    </header>
+
+<!-- ========================================== -->
+<!-- WELCOME SECTION -->
+<!-- Displays the logged-in student's welcome -->
+<!-- ========================================== -->
+
+
+
+
+
+    <section class="welcome-card">
+
+       <h2 id="studentName">
+          Welcome 👋
+       </h2>
+
+      <p>
+         Empowering Learning Through Technology
+      </p>
+
+     <small>
+ 
+         Have a productive academic session.
+     </small>
+
+   </section>
+
+    <!-- ========================================== -->
+<!-- STUDENT PROFILE -->
+<!-- Displays the logged-in student's details -->
+<!-- ========================================== -->
+
+<section class="profile-card">
+
+    <h3>👤 Student Profile</h3>
+
+    <p>
+        <strong>Full Name:</strong>
+        <span id="fullName">Loading...</span>
+    </p>
+
+    <p>
+        <strong>Registration Number:</strong>
+        <span id="matric">Loading...</span>
+    </p>
+
+    <p>
+        <strong>Faculty:</strong>
+        <span id="faculty">Loading...</span>
+    </p>
+
+    <p>
+        <strong>Department:</strong>
+        <span id="department">Loading...</span>
+    </p>
+
+    <p>
+        <strong>Level:</strong>
+        <span id="level">Loading...</span>
+    </p>
+
+    <p>
+        <strong>Email:</strong>
+        <span id="email">Loading...</span>
+    </p>
+
+    <p>
+        <strong>Phone:</strong>
+        <span id="phone">Loading...</span>
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+
+        <span class="status">
+
+            🟢 Active Student
+
+        </span>
+
+    </p>
+
+</section>
+
+
+
+
+
+
+
+    <section class="portal-grid">
+
+        <a href="#" class="card">📚 Course Registration</a>
+
+        <a href="#" class="card">📊 Results</a>
+
+        <a href="#" class="card">🧮 GPA Calculator</a>
+
+        <a href="#" class="card">📖 Lecture Notes</a>
+
+        <a href="#" class="card">📅 Timetable</a>
+
+        <a href="#" class="card">📢 Announcements</a>
+
+        <a href="#" class="card">🤖 AI Study Assistant</a>
+
+        <a href="#" class="card">🛡 Cyber General</a>
+
+    </section>
+
+    <div class="actions">
+
+        <a href="/" class="btn-home">🏠 Home</a>
+
+        <button onclick="logout()" class="btn-logout">
+            🚪 Sign Out
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+// ==========================================
+// FETCH LOGGED-IN STUDENT INFORMATION
+// ==========================================
+
+fetch("/api/user")
+
+.then(response => {
+
+    if (!response.ok) {
+
+        throw new Error("Not logged in");
+
+    }
+
+    return response.json();
+
+})
+
+.then(user => {
+
+    // ==========================================
+    // DISPLAY STUDENT INFORMATION
+    // ==========================================
+
+    const fullName = `${user.firstname} ${user.surname}`;
+
+    document.getElementById("studentName").innerHTML =
+        `Welcome, ${fullName} 👋`;
+
+    document.getElementById("fullName").textContent =
+        fullName;
+
+    document.getElementById("matric").textContent =
+        user.matric;
+
+    document.getElementById("faculty").textContent =
+        user.faculty;
+
+    document.getElementById("department").textContent =
+        user.department;
+
+    document.getElementById("level").textContent =
+        user.level;
+
+    document.getElementById("email").textContent =
+        user.email;
+
+    document.getElementById("phone").textContent =
+        user.phone;
+
+})
+
+.catch(error => {
+
+    console.log(error);
+
+    window.location.href = "/login.html";
+
+});
+
+// ==========================================
+// LOGOUT
+// ==========================================
+
+function logout(){
+
+    window.location.href="/auth/logout";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

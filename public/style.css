@@ -1,0 +1,255 @@
+/* ========================================== */
+/* NAPHTECH HUB - PROFESSIONAL STYLING */
+/* ========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    background:#f4f7fb;
+
+    color:#333;
+
+    padding:20px;
+
+}
+
+.dashboard-container{
+
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+.dashboard-header{
+
+    background:#003366;
+
+    color:white;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+.dashboard-header h1{
+
+    font-size:32px;
+
+}
+
+.dashboard-header h2{
+
+    margin-top:10px;
+
+}
+
+.school-name{
+
+    margin-top:10px;
+
+    color:#ddd;
+
+}
+
+
+
+/* ========================================== */
+/* WELCOME CARD */
+/* ========================================== */
+
+.welcome-card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+
+    margin-bottom:20px;
+
+}
+
+.welcome-card h2{
+
+    color:#003366;
+
+    margin-bottom:10px;
+
+}
+
+.welcome-card small{
+
+    color:gray;
+
+}
+
+/* ========================================== */
+/* PROFILE CARD */
+/* ========================================== */
+
+.profile-card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+
+    margin-bottom:20px;
+
+}
+
+.profile-card h3{
+
+    color:#003366;
+
+    margin-bottom:15px;
+
+}
+
+.profile-card p{
+
+    margin:10px 0;
+
+    font-size:16px;
+
+}
+
+.status{
+
+    color:green;
+
+    font-weight:bold;
+
+}
+
+
+/* ========================================== */
+/* QUICK ACCESS CARDS */
+/* ========================================== */
+
+.portal-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+    gap:15px;
+
+    margin:25px 0;
+
+}
+
+.card{
+
+    background:white;
+
+    color:#003366;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    font-weight:bold;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    background:#003366;
+
+    color:white;
+
+    transform:translateY(-5px);
+
+}
+
+
+/* ========================================== */
+/* ACTION BUTTONS */
+/* ========================================== */
+
+.actions{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+.btn-home,
+.btn-logout{
+
+    padding:12px 24px;
+
+    border:none;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-home{
+
+    background:#003366;
+
+    color:white;
+
+}
+
+.btn-home:hover{
+
+    background:#0055aa;
+
+}
+
+.btn-logout{
+
+    background:#d9534f;
+
+    color:white;
+
+}
+
+.btn-logout:hover{
+
+    background:#b52b27;
+
+}
+
+

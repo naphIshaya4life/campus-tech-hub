@@ -47,10 +47,93 @@ app.use(
 app.use(express.static(path.join(__dirname, "public")));
 
 // ==========================================
+// AUTHENTICATION MIDDLEWARE
+// ==========================================
+
+function requireLogin(req, res, next) {
+
+    if (!req.session.user) {
+
+        return res.redirect("/login.html");
+
+    }
+
+    next();
+
+}
+
+
+// ==========================================
 // ROUTES
 // ==========================================
 
 app.use("/auth", authRoutes);
+
+
+
+// ==========================================
+// PREVENT CACHING OF PROTECTED PAGES
+// ==========================================
+
+app.use((req, res, next) => {
+
+    res.setHeader(
+        "Cache-Control",
+        "no-store, no-cache, must-revalidate, private"
+    );
+
+    res.setHeader("Pragma", "no-cache");
+
+    res.setHeader("Expires", "0");
+
+    next();
+
+});
+
+
+// ==========================================
+// PROTECTED STUDENT DASHBOARD
+// ==========================================
+
+app.get("/dashboard", requireLogin, (req, res) => {
+
+    res.sendFile(
+        path.join(__dirname, "public", "student_dashboard.html")
+    );
+
+});
+
+
+// ==========================================
+// PROTECTED ADMIN DASHBOARD
+// ==========================================
+
+app.get("/admin", requireLogin, (req, res) => {
+
+    if (req.session.user.role !== "admin") {
+
+        return res.redirect("/login.html");
+
+    }
+
+    res.sendFile(
+        path.join(__dirname, "public", "admin_dashboard.html")
+    );
+
+});
+
+
+// ==========================================
+// CURRENT LOGGED-IN USER API
+// ==========================================
+
+app.get("/api/user", requireLogin, (req, res) => {
+
+    res.json(req.session.user);
+
+});
+
+
 
 // ==========================================
 // HOME PAGE
@@ -59,6 +142,52 @@ app.use("/auth", authRoutes);
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+
+
+// ==========================================
+// GET ALL REGISTERED STUDENTS
+// ADMIN API
+// ==========================================
+
+const fs = require("fs");
+
+app.get("/api/students", requireLogin, (req, res) => {
+
+
+// ==========================================
+// ADMIN ROLE CHECK
+// ==========================================
+
+if (req.session.user.role !== "admin") {
+
+    return res.status(403).json({
+
+        message: "Access Denied"
+
+    });
+
+}
+
+
+    const filePath = path.join(__dirname, "data", "users.json");
+
+    if (!fs.existsSync(filePath)) {
+
+        return res.json([]);
+
+    }
+
+    const students = JSON.parse(
+        fs.readFileSync(filePath, "utf8")
+    );
+
+    res.json(students);
+
+});
+
+
+
 
 // ==========================================
 // API INFORMATION

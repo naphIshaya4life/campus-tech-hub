@@ -19,7 +19,28 @@
         "department": "Cyber Security",
         "level": "200 Level",
         "gender": "Male",
+
         "password": "$2b$10$QZ.esemcyoTXF6id/S4cA.ppiwy3rB8ub4yWODJy0vdii0AqpnzMq",
+
+
+        "role": "student",
         "createdAt": "2026-07-26T17:10:04.617Z"
+    },
+    {
+        "id": 1785330378162,
+        "surname": "HOD",
+        "firstname": "Administrator",
+        "middlename": "",
+        "matric": "ADMIN-001",
+        "email": "hod@fuask.edu.ng",
+        "phone": "07000000000",
+        "faculty": "Faculty of Allied Health Sciences",
+        "department": "Administration",
+        "level": "500 Level",
+        "gender": "Male",
+        "password": "$2b$10$v7yX8K75Uo7l2.j1cXp2ueyyJzPnyCYNgy2ixer4xZnX1HEa5PaMi",
+
+        "role": "admin",
+        "createdAt": "2026-07-29T13:06:18.163Z"
     }
 ]

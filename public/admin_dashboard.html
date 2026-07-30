@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | NAPHTECH HUB</title>
+
+<link rel="stylesheet"
+href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+<!-- ========================================== -->
+<!-- ADMIN HEADER -->
+<!-- ========================================== -->
+
+<header class="dashboard-header">
+
+<h1>🛡 NAPHTECH HUB</h1>
+
+<h2>Administrator Dashboard</h2>
+
+<p>
+
+Campus Information System
+
+</p>
+
+</header>
+
+<!-- ========================================== -->
+<!-- ADMIN WELCOME -->
+<!-- ========================================== -->
+
+<section class="welcome-card">
+
+<h2>
+
+Welcome Administrator 👋
+
+</h2>
+
+<p>
+
+Manage students and monitor the system.
+
+</p>
+
+</section>
+
+<!-- ========================================== -->
+<!-- DASHBOARD ANALYTICS -->
+<!-- Live System Statistics -->
+<!-- ========================================== -->
+
+<section class="profile-card">
+
+<h3>📊 Dashboard Analytics</h3>
+
+<p>
+👥 Total Accounts:
+<span id="totalUsers">Loading...</span>
+</p>
+
+<p>
+🎓 Students:
+<span id="studentCount">Loading...</span>
+</p>
+
+<p>
+🛡 Administrators:
+<span id="adminCount">Loading...</span>
+</p>
+
+<p>
+🏫 Departments:
+<span id="departmentCount">Loading...</span>
+</p>
+
+<p>
+🟢 System Status:
+Running
+</p>
+
+</section>
+
+
+
+
+<!-- ========================================== -->
+<!-- REGISTERED STUDENTS TABLE -->
+<!-- Displays all registered users -->
+<!-- ========================================== -->
+
+<section class="students-section">
+
+    <h2>👥 Registered Users</h2>
+
+    <table id="studentsTable" border="1" width="100%">
+
+        <thead>
+
+            <tr>
+
+                <th>#</th>
+
+                <th>Name</th>
+
+                <th>Matric No.</th>
+
+                <th>Department</th>
+
+                <th>Level</th>
+
+                <th>Role</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="studentsBody">
+
+        </tbody>
+
+    </table>
+
+</section>
+
+
+
+<!-- ========================================== -->
+<!-- MANAGEMENT MENU -->
+<!-- ========================================== -->
+
+<section class="portal-grid">
+
+<a href="#" class="card">
+
+👥 Registered Students
+
+</a>
+
+<a href="#" class="card">
+
+🔍 Search Student
+
+</a>
+
+<a href="#" class="card">
+
+📊 Reports
+
+</a>
+
+<a href="#" class="card">
+
+⚙ Settings
+
+</a>
+
+</section>
+
+<div class="actions">
+
+<a href="/" class="btn-home">
+
+🏠 Home
+
+</a>
+
+</div>
+
+</div>
+
+<!-- ========================================== -->
+<!-- ADMIN DASHBOARD SCRIPT -->
+<!-- ========================================== -->
+
+<script>
+
+// ==========================================
+// FETCH ALL REGISTERED STUDENTS
+// ==========================================
+
+fetch("/api/students")
+
+.then(response => {
+
+    if(!response.ok){
+
+        throw new Error("Unable to load students.");
+
+    }
+
+    return response.json();
+
+})
+
+.then(students => {
+
+    // ==========================================
+    // DISPLAY TOTAL STUDENTS
+    // ==========================================
+
+    document.getElementById("studentCount").textContent =
+        students.length;
+
+})
+
+.catch(error => {
+
+    console.log(error);
+
+    document.getElementById("studentCount").textContent =
+        "Unavailable";
+
+});
+
+</script>
+<!-- ========================================== -->
+<!-- LOAD REGISTERED USERS -->
+<!-- ========================================== -->
+
+<script>
+
+fetch("/api/students")
+
+.then(res => res.json())
+
+.then(users => {
+
+    const tbody = document.getElementById("studentsBody");
+// ==========================================
+// DASHBOARD ANALYTICS
+// ==========================================
+
+// Total Accounts
+document.getElementById("totalUsers").textContent =
+    users.length;
+
+// Total Students
+const students =
+    users.filter(user => user.role === "student");
+
+document.getElementById("studentCount").textContent =
+    students.length;
+
+// Total Administrators
+const admins =
+    users.filter(user => user.role === "admin");
+
+document.getElementById("adminCount").textContent =
+    admins.length;
+
+// Total Departments
+const departments =
+    [...new Set(users.map(user => user.department))];
+
+document.getElementById("departmentCount").textContent =
+    departments.length;
+
+
+
+
+
+    tbody.innerHTML = "";
+
+    users.forEach((user, index) => {
+
+        tbody.innerHTML += `
+
+        <tr>
+
+            <td>${index + 1}</td>
+
+            <td>${user.firstname || ""} ${user.surname || user.fullname || ""}</td>
+
+            <td>${user.matric || "-"}</td>
+
+            <td>${user.department || "-"}</td>
+
+            <td>${user.level || "-"}</td>
+
+
+           <td>
+
+
+
+
+           ${user.role === "admin"
+
+           ? "🔴 Admin"
+
+           : "🟢 Student"}
+
+         </td>
+
+
+
+        </tr>
+
+        `;
+
+    });
+
+})
+
+.catch(err => {
+
+    console.log(err);
+
+});
+</script>
+
+<script>
+
+// ==========================================
+// LOGOUT ADMIN
+// ==========================================
+
+function logout(){
+
+    window.location.href="/auth/logout";
+
+}
+
+</script>
+
+
+</body>
+
+
+
+<!-- ========================================== -->
+<!-- ACTION BUTTONS -->
+<!-- ========================================== -->
+
+<div class="actions">
+
+    <a href="/" class="btn-home">
+        🏠 Home
+    </a>
+
+    <button onclick="logout()" class="btn-logout">
+        🚪 Sign Out
+    </button>
+
+</div>
+</html>

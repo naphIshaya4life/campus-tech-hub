@@ -162,16 +162,29 @@ const message=document.getElementById("message");
 message.innerHTML=data.message;
 
 message.style.color=data.success?"green":"red";
+// ==========================================
+// ROLE-BASED REDIRECTION
+// ==========================================
 
 if(data.success){
 
-setTimeout(()=>{
+    setTimeout(()=>{
 
-window.location.href="dashboard.html";
+        if(data.user.role === "admin"){
 
-},1000);
+        window.location.href="/admin";
+
+        }else{
+
+            window.location.href="/dashboard";
+
+        }
+
+    },1000);
 
 }
+
+
 
 });
 
