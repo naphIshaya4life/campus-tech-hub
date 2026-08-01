@@ -19,10 +19,7 @@
         "department": "Cyber Security",
         "level": "200 Level",
         "gender": "Male",
-
         "password": "$2b$10$QZ.esemcyoTXF6id/S4cA.ppiwy3rB8ub4yWODJy0vdii0AqpnzMq",
-
-
         "role": "student",
         "createdAt": "2026-07-26T17:10:04.617Z"
     },
@@ -39,8 +36,23 @@
         "level": "500 Level",
         "gender": "Male",
         "password": "$2b$10$v7yX8K75Uo7l2.j1cXp2ueyyJzPnyCYNgy2ixer4xZnX1HEa5PaMi",
-
         "role": "admin",
         "createdAt": "2026-07-29T13:06:18.163Z"
+    },
+    {
+        "id": 1785514550969,
+        "surname": "Ishaya",
+        "firstname": "Limitless",
+        "middlename": "",
+        "matric": "FUAS/CPC/CSE/25/0029",
+        "email": "limitless125@gmail.com",
+        "phone": "08115467925",
+        "faculty": "Faculty of Computing",
+        "department": "Cyber Security",
+        "level": "500 Level",
+        "gender": "Male",
+        "password": "$2b$10$/iPEvx.9j3meY0R78ciAIOEHyuDsbozTcVv7gktlsbhkEH4vBgfay",
+        "role": "student",
+        "createdAt": "2026-07-31T16:15:50.969Z"
     }
 ]

@@ -227,11 +227,12 @@ fetch("/api/students")
 });
 
 </script>
-<!-- ========================================== -->
-<!-- LOAD REGISTERED USERS -->
-<!-- ========================================== -->
 
 <script>
+
+// ==========================================
+// LOAD REGISTERED USERS FROM POSTGRESQL
+// ==========================================
 
 fetch("/api/students")
 
@@ -239,51 +240,47 @@ fetch("/api/students")
 
 .then(users => {
 
+    console.log("Students loaded:", users);
+
     const tbody = document.getElementById("studentsBody");
-// ==========================================
-// DASHBOARD ANALYTICS
-// ==========================================
 
-// Total Accounts
-document.getElementById("totalUsers").textContent =
-    users.length;
+    if (!tbody) {
+        console.log("Table body not found");
+        return;
+    }
 
-// Total Students
-const students =
-    users.filter(user => user.role === "student");
 
-document.getElementById("studentCount").textContent =
-    students.length;
+    // Statistics
 
-// Total Administrators
-const admins =
-    users.filter(user => user.role === "admin");
+    document.getElementById("totalUsers").textContent =
+        users.length;
 
-document.getElementById("adminCount").textContent =
-    admins.length;
 
-// Total Departments
-const departments =
-    [...new Set(users.map(user => user.department))];
+    document.getElementById("studentCount").textContent =
+        users.filter(user => user.role === "student").length;
 
-document.getElementById("departmentCount").textContent =
-    departments.length;
+
+    document.getElementById("adminCount").textContent =
+        users.filter(user => user.role === "admin").length;
+
+
+    document.getElementById("departmentCount").textContent =
+        [...new Set(users.map(user => user.department))].length;
 
 
 
+    // Table
 
-
-    tbody.innerHTML = "";
-
-    users.forEach((user, index) => {
-
-        tbody.innerHTML += `
+    tbody.innerHTML = users.map((user, index) => `
 
         <tr>
 
             <td>${index + 1}</td>
 
-            <td>${user.firstname || ""} ${user.surname || user.fullname || ""}</td>
+            <td>
+                ${user.firstname || ""} 
+                ${user.surname || ""}
+            </td>
 
             <td>${user.matric || "-"}</td>
 
@@ -291,36 +288,30 @@ document.getElementById("departmentCount").textContent =
 
             <td>${user.level || "-"}</td>
 
-
-           <td>
-
-
-
-
-           ${user.role === "admin"
-
-           ? "🔴 Admin"
-
-           : "🟢 Student"}
-
-         </td>
-
-
+            <td>
+                ${
+                    user.role === "admin"
+                    ? "🔴 Admin"
+                    : "🟢 Student"
+                }
+            </td>
 
         </tr>
 
-        `;
-
-    });
+    `).join("");
 
 })
 
 .catch(err => {
 
-    console.log(err);
+    console.error("Loading students failed:", err);
 
 });
+
 </script>
+
+
+
 
 <script>
 

@@ -7,7 +7,7 @@ const path = require("path");
 const router = express.Router();
 
 const usersFile = path.join(__dirname, "../data/users.json");
-
+const pool = require("../db");
 // ==========================================
 // READ USERS
 // ==========================================
@@ -122,29 +122,22 @@ router.post("/register", async (req, res) => {
 
     }
 
-    let users = getUsers();
+const existing = await pool.query(
+    `SELECT id
+     FROM users
+     WHERE email = $1 OR matric = $2`,
+    [email, matric]
+);
 
-    const exists = users.find(
+if (existing.rowCount > 0) {
+    return res.status(400).json({
+        success: false,
+        message: "Student already exists."
+    });
+}
 
-        user =>
 
-            user.email === email ||
 
-            user.matric === matric
-
-    );
-
-    if (exists) {
-
-        return res.status(400).json({
-
-            success: false,
-
-            message: "Student already exists."
-
-        });
-
-    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -185,19 +178,81 @@ router.post("/register", async (req, res) => {
 
     };
 
-    users.push(newUser);
 
-    saveUsers(users);
 
-    res.json({
+try {
 
-        success: true,
+    await pool.query(
+        `INSERT INTO users
+        (
+            surname,
+            firstname,
+            middlename,
+            matric,
+            email,
+            phone,
+            faculty,
+            department,
+            level,
+            gender,
+            password,
+            role
+        )
+        VALUES
+        (
+            $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12
+        )`,
+        [
+            newUser.surname,
+            newUser.firstname,
+            newUser.middlename,
+            newUser.matric,
+            newUser.email,
+            newUser.phone,
+            newUser.faculty,
+            newUser.department,
+            newUser.level,
+            newUser.gender,
+            newUser.password,
+            newUser.role
+        ]
+    );
 
-        message: "Registration Successful."
+} catch (err) {
 
+if (err.code === "23505") {
+    return res.status(400).json({
+        success: false,
+        message: "Email or Matric Number already exists."
+    });
+}
+
+    console.error("========== POSTGRESQL INSERT ERROR ==========");
+    console.error("Code:", err.code);
+    console.error("Message:", err.message);
+    console.error("Detail:", err.detail);
+    console.error("Constraint:", err.constraint);
+    console.error("Stack:", err.stack);
+
+    return res.status(500).json({
+        success: false,
+        message: err.message
     });
 
+}
+
+
+
+
+return res.json({
+    success: true,
+    message: "Registration successful."
 });
+});
+
+
+
+
 
 
 // ==========================================
@@ -208,31 +263,24 @@ router.post("/login", async (req, res) => {
 
     const { email, password } = req.body;
 
-    let users = getUsers();
+const result = await pool.query(
+    `SELECT * FROM users
+     WHERE LOWER(email) = LOWER($1)`,
+    [email.trim()]
+);
 
-    const user = users.find(
+if (result.rowCount === 0) {
+    return res.status(400).json({
+        success: false,
+        message: "Email not found."
+    });
+}
 
-        u =>
+const user = result.rows[0];
 
-            u.email &&
 
-            u.email.trim().toLowerCase() ===
 
-            email.trim().toLowerCase()
 
-    );
-
-    if (!user) {
-
-        return res.status(400).json({
-
-            success: false,
-
-            message: "Email not found."
-
-        });
-
-    }
 
     const valid = await bcrypt.compare(
 
@@ -304,22 +352,14 @@ router.post("/login", async (req, res) => {
 // ==========================================
 
 router.get("/logout", (req, res) => {
-
     req.session.destroy((err) => {
-
         if (err) {
-
             return res.status(500).send("Logout failed.");
-
         }
 
         res.clearCookie("connect.sid");
-
         res.redirect("/login.html");
-
     });
-
 });
-
 
 module.exports = router;

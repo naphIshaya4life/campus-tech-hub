@@ -152,7 +152,7 @@ app.get("/", (req, res) => {
 
 const fs = require("fs");
 
-app.get("/api/students", requireLogin, (req, res) => {
+app.get("/api/students", requireLogin, async (req, res) => {
 
 
 // ==========================================
@@ -169,20 +169,40 @@ if (req.session.user.role !== "admin") {
 
 }
 
+try {
 
-    const filePath = path.join(__dirname, "data", "users.json");
+    const result = await pool.query(`
+        SELECT
+            id,
+            surname,
+            firstname,
+            middlename,
+            matric,
+            email,
+            phone,
+            faculty,
+            department,
+            level,
+            gender,
+            role,
+            created_at
+        FROM users
+        ORDER BY created_at DESC
+    `);
 
-    if (!fs.existsSync(filePath)) {
+    return res.json(result.rows);
 
-        return res.json([]);
+} catch (err) {
 
-    }
+    console.error("Admin students error:", err);
 
-    const students = JSON.parse(
-        fs.readFileSync(filePath, "utf8")
-    );
+    return res.status(500).json({
+        success: false,
+        message: "Unable to load students."
+    });
 
-    res.json(students);
+}
+
 
 });
 
@@ -246,6 +266,26 @@ app.use((req, res) => {
 // ==========================================
 
 const PORT = process.env.PORT || 3000;
+const pool = require("./db");
+
+(async () => {
+    try {
+
+        const result = await pool.query("SELECT NOW()");
+
+        console.log("✅ Server PostgreSQL:", result.rows[0]);
+
+    } catch (err) {
+
+        console.error("❌ Server PostgreSQL Error:");
+
+        console.error(err);
+
+    }
+
+})();
+
+
 
 app.listen(PORT, "0.0.0.0", () => {
 
