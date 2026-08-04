@@ -31,6 +31,8 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
+
 const path = require("path");
 const session = require("express-session");
 
@@ -45,7 +47,7 @@ const authRoutes = require("./routes/auth");
 // ==========================================
 
 const app = express();
-
+app.use(helmet());
 // ==========================================
 // MIDDLEWARE
 // ==========================================
