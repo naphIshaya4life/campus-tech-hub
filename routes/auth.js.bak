@@ -1,13 +1,44 @@
 
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const fs = require("fs");
+const path = require("path");
 
 const router = express.Router();
 
+const usersFile = path.join(__dirname, "../data/users.json");
 const pool = require("../db");
+// ==========================================
+// READ USERS
+// ==========================================
 
+function getUsers() {
 
+    if (!fs.existsSync(usersFile)) {
 
+        fs.writeFileSync(usersFile, "[]");
+
+    }
+
+    return JSON.parse(fs.readFileSync(usersFile, "utf8"));
+
+}
+
+// ==========================================
+// SAVE USERS
+// ==========================================
+
+function saveUsers(users) {
+
+    fs.writeFileSync(
+
+        usersFile,
+
+        JSON.stringify(users, null, 4)
+
+    );
+
+}
 
 // ==========================================
 // REGISTER STUDENT

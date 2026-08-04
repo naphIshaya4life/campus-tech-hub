@@ -1,9 +1,33 @@
 
+
 // ==========================================
 // NAPHTECH HUB SERVER
-// Version: 2.0.0
-// Developer: Naphtali Ishaya
+// Campus Tech Hub
 // ==========================================
+//
+// Developer : Naphtali Ishaya
+// Version   : 3.2.0
+// Status    : Production Ready
+//
+// Stack:
+// - Node.js
+// - Express.js
+// - PostgreSQL
+// - Render Cloud
+//
+// Features:
+// - Student Registration
+// - Secure Login
+// - Admin Dashboard
+// - PostgreSQL Database
+// - Session Authentication
+// - REST API
+// - GitHub Deployment
+// - Database Backup System
+//
+// ==========================================
+
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
