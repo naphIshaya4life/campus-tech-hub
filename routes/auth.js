@@ -295,26 +295,30 @@ const user = result.rows[0];
 
     };
 
-    res.json({
+    req.session.save((err) => {
 
-        success: true,
+        if (err) {
 
-        message: "Login Successful.",
+            console.error("❌ SESSION SAVE ERROR:", err);
 
-        user: req.session.user
+            return res.status(500).json({
+                success: false,
+                message: "Login session could not be saved."
+            });
+
+        }
+
+        console.log("✅ SESSION SAVED:", req.session.user.email);
+
+        res.json({
+            success: true,
+            message: "Login Successful.",
+            user: req.session.user
+        });
 
     });
 
 });
-
-
-
-
-
-
-
-
-
 // ==========================================
 // LOGOUT
 // Destroy user session
