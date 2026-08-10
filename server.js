@@ -32,7 +32,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-
+const rateLimit = require("express-rate-limit");
 const path = require("path");
 const session = require("express-session");
 
@@ -46,8 +46,24 @@ const authRoutes = require("./routes/auth");
 // CREATE EXPRESS APP
 // ==========================================
 
+
 const app = express();
-app.use(helmet());
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+        success: false,
+        message: "Too many login attempts. Please try again in 15 minutes."
+    }
+});
+
+app.use(helmet({
+    contentSecurityPolicy: false
+}));
+
+
 // ==========================================
 // MIDDLEWARE
 // ==========================================
@@ -93,9 +109,8 @@ function requireLogin(req, res, next) {
 // ROUTES
 // ==========================================
 
+// app.use("/auth/login", loginLimiter);
 app.use("/auth", authRoutes);
-
-
 
 // ==========================================
 // PREVENT CACHING OF PROTECTED PAGES
