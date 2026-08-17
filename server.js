@@ -41,7 +41,10 @@ const session = require("express-session");
 // ==========================================
 
 const authRoutes = require("./routes/auth");
-
+const {
+    requireLogin,
+    requireAdmin
+} = require("./middleware/auth");
 // ==========================================
 // CREATE EXPRESS APP
 // ==========================================
@@ -101,18 +104,6 @@ app.use(express.static(path.join(__dirname, "public")));
 // ==========================================
 // AUTHENTICATION MIDDLEWARE
 // ==========================================
-
-function requireLogin(req, res, next) {
-
-    if (!req.session.user) {
-
-        return res.redirect("/login.html");
-
-    }
-
-    next();
-
-}
 
 
 // ==========================================
@@ -203,22 +194,7 @@ app.get("/", (req, res) => {
 
 const fs = require("fs");
 
-app.get("/api/students", requireLogin, async (req, res) => {
-
-
-// ==========================================
-// ADMIN ROLE CHECK
-// ==========================================
-
-if (req.session.user.role !== "admin") {
-
-    return res.status(403).json({
-
-        message: "Access Denied"
-
-    });
-
-}
+app.get("/api/students", requireAdmin, async (req, res) => {
 
 try {
 

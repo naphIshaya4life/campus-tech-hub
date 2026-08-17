@@ -1,3 +1,5 @@
+
+
 {
   "name": "campus-tech-hub",
   "version": "1.0.0",
@@ -5,6 +7,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "online": "node server.js",
+    "offline": "DB_MODE=offline DATABASE_URL=\"postgresql://u0_a206@127.0.0.1:5432/campus_tech_hub\" node server.js",
+    "backup": "node backup.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
